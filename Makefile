@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 16:16:41 by deelliot          #+#    #+#              #
-#    Updated: 2022/10/18 22:33:26 by thakala          ###   ########.fr        #
+#    Updated: 2022/10/19 12:49:34 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,13 @@ FLAGS = -Wall -Wextra -Werror -g
 SRCS_DIR = srcs
 OBJS_DIR = objs
 INCS = -I includes/ -I libft/includes/ -I minilibx/
+HDRS = includes/RTv1.h \
+	includes/colour.h \
+	includes/debug.h \
+	includes/matrices.h \
+	includes/objects.h \
+	includes/tuple.h
+
 LIBFT_DIR = libft
 MINILIBX_DIR = minilibx
 
@@ -34,7 +41,8 @@ FILES = \
 	handle_input \
 	intersect \
 	matrix_transformations \
-	plot
+	plot \
+	debug_print
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(FILES)))

@@ -28,35 +28,6 @@ typedef struct s_transform_matricex
 	t_mtx	inverse;
 }	t_tf_mtx;
 
-/*typedef t_mtx	*(*t_transformation_fn)(t_mtx *, t_tuple *);
-
-typedef enum e_transform_actions
-{
-	NONE = 0,
-	TRANSLATE = 0b1,
-	ROT_X = 0b10,
-	ROT_Y = 0b100,
-	ROT_Z = 0b1000,
-	SCALE = 0b10000
-}	t_tf_acts;*/
-
-// sizeof(enum_e_transform_actions);
-
-/*typedef struct s_translation
-{
-	t_tuple	translation_tuple;
-	uint8_t	default : 1;
-};
-
-typedef union u_tuple_default_check
-{
-	t_translation	translation;
-	t_rotation		rotation;
-	t_scale			scale;
-}	t_tuple_default;*/
-
-	/*t_tf_acts	actions;*/
-
 typedef struct s_transform
 {
 	t_tf_mtx	matrix;

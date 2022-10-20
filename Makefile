@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 16:16:41 by deelliot          #+#    #+#              #
-#    Updated: 2022/10/19 12:49:34 by thakala          ###   ########.fr        #
+#    Updated: 2022/10/21 00:59:32 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,9 @@ FILES = \
 	intersect \
 	matrix_transformations \
 	plot \
+	normals \
+	transform_tuple \
+	reflections \
 	debug_print
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))

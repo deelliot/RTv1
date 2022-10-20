@@ -6,7 +6,7 @@
 /*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:20:54 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/18 15:49:58 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:10:37 by deelliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,23 @@ t_tuple	tuple_sub(t_tuple *a, t_tuple *b)
 	});
 }
 
-t_tuple	tuple_multi(t_tuple *a, t_fl scalar)
+t_tuple	tuple_scale(t_tuple *a, t_fl scalar)
 {
 	return ((t_tuple){
 		.tuple.units.x = a->tuple.units.x * scalar,
 		.tuple.units.y = a->tuple.units.y * scalar,
 		.tuple.units.z = a->tuple.units.z * scalar,
-		.tuple.units.w = a->tuple.units.w * scalar
+		.tuple.units.w = a->tuple.units.w * scalar //pretty sure the w shouldn't be scaled up, it should remain the same right?
+	});
+}
+
+t_tuple	tuple_multi(t_tuple *a, t_tuple *b)
+{
+	return ((t_tuple){
+		.tuple.units.x = a->tuple.units.x * b->tuple.units.x,
+		.tuple.units.y = a->tuple.units.y * b->tuple.units.y,
+		.tuple.units.z = a->tuple.units.z * b->tuple.units.z,
+		.tuple.units.w = a->tuple.units.w * b->tuple.units.w
 	});
 }
 
@@ -98,6 +108,11 @@ t_tuple	normalize(t_tuple *a)
 		.tuple.units.w = VECTOR_0
 	});
 }
+
+/* the dot product calculates the cosine angle between two vectors
+the smaller the dot product, the larger the angle between vectors*/
+
+/* vector length = sqrt of the dot product of the vector itself */
 
 t_fl	dot_product(t_tuple *a, t_tuple *b)
 {

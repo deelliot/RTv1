@@ -22,44 +22,41 @@ typedef struct s_field_of_view
 	t_fl	vertical;
 }	t_fov2;
 
-typedef struct s_transform_matricex
-{
-	t_mtx	resultant;
-	t_mtx	inverse;
-}	t_tf_mtx;
-
 typedef struct s_transform
 {
-	t_tf_mtx	matrix;
-	t_tuple		translation;
-	t_tuple		rotation;
-	t_tuple		scale;
+	t_mtx	matrix;
+	t_mtx	inverse;
+	t_tuple	translation;
+	t_tuple	rotation;
+	t_tuple	scale;
 }	t_transform;
 
-// need to add a material struct such as one below to each of the object shapes
-
-/* typedef struct s_material
+typedef struct s_material
 {
-	t_fl	ambient; btw 0 - 1
-	t_fl	diffuse; btw 0 - 1
-	t_fl	specular; btw 0 - 1
-	t_fl	shininess; btw 10 - 200
+	t_fl	ambient;
+	t_fl	diffuse;
+	t_fl	specular;
+	t_fl	shininess;
 	t_tuple	colour;
-}				t_material; */
+	t_tuple	amb_col;
+	t_tuple	dif_col;
+	t_tuple	spec_col;
+	t_tuple	col_mash;
+}				t_material;
 
 typedef struct s_plane
 {
 	t_tuple		origin;
 	t_transform	transform;
 	t_tuple		normal;
-	t_tuple		colour;
+	t_material	material;
 }	t_plane;
 
 typedef struct s_sphere
 {
 	t_tuple		origin;
 	t_transform	transform;
-	t_tuple		colour;
+	t_material	material;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -67,14 +64,14 @@ typedef struct s_cylinder
 	t_tuple		origin;
 	t_transform	transform;
 	t_fl		radius;
-	t_tuple		colour;
+	t_material	material;
 }	t_cylinder;
 
 typedef struct s_cone
 {
 	t_tuple		origin;
 	t_transform	transform;
-	t_tuple		colour;
+	t_material	material;
 }	t_cone;
 
 typedef struct s_light
@@ -108,10 +105,10 @@ union	u_object
 {
 	t_plane		plane;
 	t_sphere	sphere;
-	t_cylinder	cylinder;
 	t_cone		cone;
-	t_light		light;
+	t_cylinder	cylinder;
 	t_camera	camera;
+	t_light		light;
 };
 
 typedef struct s_object
@@ -122,10 +119,12 @@ typedef struct s_object
 
 typedef t_tuple	(*t_normal_fn)(t_object *, t_tuple *);
 
+typedef void	(*t_object_transform)(t_object *);
+
 typedef struct s_objects
 {
 	t_object	*list;
-	uint64_t	len;
+	uint64_t	count;
 }	t_objects;
 
 #endif

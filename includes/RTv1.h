@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/19 12:46:15 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 00:59:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "tuple.h"
 # include "matrices.h"
 # include "objects.h"
-# include "colour.h"
+# include "colour_and_light.h"
 #include "debug.h"
 
 # define WIDTH 400
@@ -60,6 +60,12 @@ typedef struct s_intersections
 
 }				t_intersections;
 
+typedef struct s_coords
+{
+	uint32_t	row; //yrow
+	uint32_t	col; //xcol
+}				t_coords;
+
 typedef struct s_win
 {
 	t_img		img;
@@ -72,7 +78,8 @@ t_tuple	point(t_fl x, t_fl y, t_fl z);
 t_tuple	vector(t_fl x, t_fl y, t_fl z);
 t_tuple	tuple_add(t_tuple *a, t_tuple *b);
 t_tuple	tuple_sub(t_tuple *a, t_tuple *b);
-t_tuple	tuple_multi(t_tuple *a, t_fl scalar);
+t_tuple	tuple_multi(t_tuple *a, t_tuple *b);
+t_tuple	tuple_scale(t_tuple *a, t_fl scalar);
 t_tuple	tuple_div(t_tuple *a, t_fl scalar);
 t_fl	magnitude(t_tuple *a);
 t_tuple	normalize(t_tuple *a);
@@ -88,12 +95,12 @@ void	matrix_inversion(t_mtx *mtx, uint32_t size);
 
 
 /* matrix transformations */
-t_tuple	translate_tuple(t_tuple *tuple, t_tuple *transform);
-t_tuple	scale_tuple(t_tuple *tuple, t_tuple *transform);
+// t_tuple	translate_tuple(t_tuple *tuple, t_tuple *transform);
+// t_tuple	scale_tuple(t_tuple *tuple, t_tuple *transform);
 void	rotate(t_mtx *mtx, t_tuple *rotations);
-t_tuple	rot_x_tuple(t_tuple *tuple, t_fl angle);
-t_tuple	rot_y_tuple(t_tuple *tuple, t_fl angle);
-t_tuple	rot_z_tuple(t_tuple *tuple, t_fl angle);
+// t_tuple	rot_x_tuple(t_tuple *tuple, t_fl angle);
+// t_tuple	rot_y_tuple(t_tuple *tuple, t_fl angle);
+// t_tuple	rot_z_tuple(t_tuple *tuple, t_fl angle);
 
 void	translate(t_mtx *mtx, t_tuple *transform);
 void	scale(t_mtx *mtx, t_tuple *transform);
@@ -107,6 +114,7 @@ void	identity_matrix_set(t_mtx *dst);
 /* ray transformations */
 t_ray	ray_translation(t_ray ray, t_tuple transform);
 t_ray	ray_scale(t_ray ray, t_tuple transform);
+t_tuple	hit_position(t_ray *ray, t_fl distance);
 
 /* error handle*/
 // void	handle_errors(char *str);
@@ -119,8 +127,10 @@ void	initialise_window(t_win *win);
 /* handle input*/
 int		handle_input(int key, t_win *win);
 
-/* colour */
+/* colour and lighting*/
 t_tuple	hex_to_argb(uint32_t colour);
+void	lighting(t_material *material, t_pt_light *light, t_phong *vectors,
+	t_tuple *point);
 
 /* object intialisation */
 t_object	sphere(t_tuple *origin, t_transform *transform, t_tuple *colour);
@@ -130,10 +140,22 @@ void	identify_hit(t_intersections *array);
 // void	sphere_intersection(t_ray *ray, t_object *shape, t_intersections *array);
 void	sphere_intersection(t_ray *ray, t_object *shape, t_intersections *array, t_win *win);
 
+/* reflections*/
+t_tuple reflect(t_tuple *input, t_tuple *normal);
+
+/* object transformation */
+void	transform_objects(t_objects *objects);
+
+/* normals */
+t_tuple	normal_at_sphere(t_sphere *sphere, t_tuple *point_at);
+
 /* plot pixels */
-void	plot_points(t_win *win, t_object *sphere);
-void	img_pixel_put(t_win *win, int x, int y, unsigned int colour);
+// void	plot_points(t_win *win, t_object *sphere);
+void	plot_points(t_win *win, t_object *sphere, t_pt_light *light);
+void	img_pixel_put(t_win *win, int x, int y, t_tuple *colour);
+// void	img_pixel_put(t_win *win, int x, int y, unsigned int colour);
+
 /* testing */
-void	ft_print_num_array(t_fl **array, int y, int x);
+void	ft_print_mtx(t_mtx *mtx);
 
 #endif

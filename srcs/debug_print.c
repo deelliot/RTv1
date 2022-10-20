@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:12:35 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/20 21:38:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 00:52:35 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	fd_retryer(int *fd, char template[])
 				"mkstemps failed 100 times in a row, quitting!\n");
 			break ;
 		}
-		printf("opening crash_situation fd: ");
 		*fd = mkstemps(template, 4);
 		printf("template: {'%s'}, fd: {'%d'}\n", template, *fd);
 	}
@@ -33,7 +32,7 @@ static void	fd_retryer(int *fd, char template[])
 
 static void	get_fd_automatic(int *fd_automatic)
 {
-	char	template[] = "crash_situation_XXXXXXXXX.scn";
+	char	template[] = "crash_XXXXXXXXX.scn";
 
 	fd_retryer(fd_automatic, template);
 }
@@ -128,11 +127,13 @@ static void	unravel_sphere(t_object *object, t_unravel *unravel)
 		&rotation_tuple,
 		&scale_tuple);
 	colour_tuple = unravel_tuple(&object->object.sphere.colour);
-	resultant_matrix = \
-		unravel_matrix_four(&object->object.sphere.transform.matrix.resultant);
-	inverse_matrix = \
-		unravel_matrix_four(&object->object.sphere.transform.matrix.inverse);
-	status = dprintf(unravel->fd, "\
+	if (unravel->verbose)
+	{
+		resultant_matrix = \
+			unravel_matrix_four(&object->object.sphere.transform.matrix);
+		inverse_matrix = \
+			unravel_matrix_four(&object->object.sphere.transform.inverse);
+		status = dprintf(unravel->fd, "\
 %s %s\n\
 %s %s\n\
 %s %s\n\
@@ -141,29 +142,62 @@ static void	unravel_sphere(t_object *object, t_unravel *unravel)
 %s %s\n\
 %s %s\n\
 \n",
-"origin", origin_tuple,
-"translation", translation_tuple,
-"rotation", rotation_tuple,
-"scale", scale_tuple,
-"colour", colour_tuple,
-"resultant", resultant_matrix,
-"inverse", inverse_matrix);
-	free(origin_tuple);
-	free(translation_tuple);
-	free(rotation_tuple);
-	free(scale_tuple);
-	free(colour_tuple);
-	free(resultant_matrix);
-	free(inverse_matrix);
-	if (status < 0)
-	{
-		dprintf(STDERR_FILENO, "dprintf to fd %d failed!", unravel->fd);
-		close(unravel->fd);
-		unravel->fd = -1;
-		if (unravel->nests++ < 7)
+	"origin", origin_tuple,
+	"translation", translation_tuple,
+	"rotation", rotation_tuple,
+	"scale", scale_tuple,
+	"colour", colour_tuple,
+	"resultant", resultant_matrix,
+	"inverse", inverse_matrix);
+		free(origin_tuple);
+		free(translation_tuple);
+		free(rotation_tuple);
+		free(scale_tuple);
+		free(colour_tuple);
+		free(resultant_matrix);
+		free(inverse_matrix);
+		if (status < 0)
 		{
-			get_fd(unravel);
-			unravel_sphere(object, unravel);
+			dprintf(STDERR_FILENO, "dprintf to fd %d failed!", unravel->fd);
+			close(unravel->fd);
+			unravel->fd = -1;
+			if (unravel->nests++ < 7)
+			{
+				get_fd(unravel);
+				unravel_sphere(object, unravel);
+			}
+		}
+	}
+	else
+	{
+
+		status = dprintf(unravel->fd, "\
+%s %s\n\
+%s %s\n\
+%s %s\n\
+%s %s\n\
+%s %s\n\
+\n",
+	"origin", origin_tuple,
+	"translation", translation_tuple,
+	"rotation", rotation_tuple,
+	"scale", scale_tuple,
+	"colour", colour_tuple);
+		free(origin_tuple);
+		free(translation_tuple);
+		free(rotation_tuple);
+		free(scale_tuple);
+		free(colour_tuple);
+		if (status < 0)
+		{
+			dprintf(STDERR_FILENO, "dprintf to fd %d failed!", unravel->fd);
+			close(unravel->fd);
+			unravel->fd = -1;
+			if (unravel->nests++ < 7)
+			{
+				get_fd(unravel);
+				unravel_sphere(object, unravel);
+			}
 		}
 	}
 }

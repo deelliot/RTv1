@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:12:35 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/21 00:52:35 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 01:56:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,22 +126,22 @@ static void	unravel_sphere(t_object *object, t_unravel *unravel)
 		&translation_tuple,
 		&rotation_tuple,
 		&scale_tuple);
-	colour_tuple = unravel_tuple(&object->object.sphere.colour);
+	colour_tuple = unravel_tuple(&object->object.sphere.material.colour);
 	if (unravel->verbose)
 	{
 		resultant_matrix = \
 			unravel_matrix_four(&object->object.sphere.transform.matrix);
 		inverse_matrix = \
 			unravel_matrix_four(&object->object.sphere.transform.inverse);
-		status = dprintf(unravel->fd, "\
-%s %s\n\
-%s %s\n\
-%s %s\n\
-%s %s\n\
-%s %s\n\
-%s %s\n\
-%s %s\n\
-\n",
+		status = dprintf(unravel->fd, "SPHERE\n{\n\
+\t%s\t\t\t%s\n\
+\t%s\t\t%s\n\
+\t%s\t\t%s\n\
+\t%s\t\t\t%s\n\
+\t%s\t\t\t%s\n\
+\t%s\t\t\t\n%s\n\
+\t%s\t\t\t\n%s\n\
+}\n",
 	"origin", origin_tuple,
 	"translation", translation_tuple,
 	"rotation", rotation_tuple,
@@ -172,11 +172,11 @@ static void	unravel_sphere(t_object *object, t_unravel *unravel)
 	{
 
 		status = dprintf(unravel->fd, "\
-%s %s\n\
-%s %s\n\
-%s %s\n\
-%s %s\n\
-%s %s\n\
+\t%s\t\t\t%s\n\
+\t%s\t\t%s\n\
+\t%s\t\t%s\n\
+\t%s\t\t\t%s\n\
+\t%s\t\t\t%s\n\
 \n",
 	"origin", origin_tuple,
 	"translation", translation_tuple,
@@ -256,13 +256,13 @@ int	unravel_objects_array(t_objects *objects, t_unravel *unravel)
 	uint64_t	c;
 
 	get_fd(unravel);
-	if (objects->len == 0)
+	if (objects->count == 0)
 	{
 		dprintf(STDERR_FILENO, "No objects in objects array!\n");
 		return (EXIT_SUCCESS);
 	}
 	c = 0;
-	while (c < objects->len)
+	while (c < objects->count)
 	{
 		unravels[objects->list[c].type](&objects->list[c], unravel);
 		c++;

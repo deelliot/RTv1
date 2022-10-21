@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plot.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:40:28 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/20 16:41:32 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/10/21 03:09:18 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	plot_points(t_win *win, t_object *sphere, t_pt_light *light)
 					vectors.surface_normal = normal_at_sphere(&sphere->object.sphere, &lit_point);
 					vectors.eye = ray.direction;
 					lighting(&sphere->object.sphere.material, light, &vectors, &lit_point);
+					sphere->object.sphere.material.colour.tuple.colour.a = 1.0;
 					img_pixel_put(win, obj_space.col, obj_space.row, &sphere->object.sphere.material.colour);
 				}
 

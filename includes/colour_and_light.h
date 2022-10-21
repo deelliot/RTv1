@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colour_and_light.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 17:34:04 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/20 16:49:51 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/10/21 01:12:12 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ enum e_colour
 typedef struct s_pt_light
 {
 	t_tuple		position;
-	t_colour	intensity;
+	t_tuple		intensity;
 }				t_pt_light;
 
 typedef struct s_phong

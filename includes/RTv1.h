@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/21 00:59:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 03:16:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int		handle_input(int key, t_win *win);
 
 /* colour and lighting*/
 t_tuple	hex_to_argb(uint32_t colour);
+uint32_t	argb_to_hex(t_tuple *colour);
 void	lighting(t_material *material, t_pt_light *light, t_phong *vectors,
 	t_tuple *point);
 

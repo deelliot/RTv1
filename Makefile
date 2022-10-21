@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 16:16:41 by deelliot          #+#    #+#              #
-#    Updated: 2022/10/21 00:59:32 by thakala          ###   ########.fr        #
+#    Updated: 2022/10/21 01:06:06 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS_DIR = srcs
 OBJS_DIR = objs
 INCS = -I includes/ -I libft/includes/ -I minilibx/
 HDRS = includes/RTv1.h \
-	includes/colour.h \
+	includes/colour_and_light.h \
 	includes/debug.h \
 	includes/matrices.h \
 	includes/objects.h \

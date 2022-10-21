@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:19:24 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/20 20:59:57 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 02:08:45 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@
 # define TUPLE_FORMAT_2 "(%12.12lf, %12.12lf, %12.12lf, %12.12lf)"
 # define MATRIX_FORMAT MATRIX_FORMAT_0
 # define MATRIX_FORMAT_0 "\
-|%3.3lf, %3.3lf, %3.3lf, %3.3lf|\n\
-|%3.3lf, %3.3lf, %3.3lf, %3.3lf|\n\
-|%3.3lf, %3.3lf, %3.3lf, %3.3lf|\n\
-|%3.3lf, %3.3lf, %3.3lf, %3.3lf|"
+\t\t\t\t\t|%3.3lf, %3.3lf, %3.3lf, %3.3lf|\n\
+\t\t\t\t\t|%3.3lf, %3.3lf, %3.3lf, %3.3lf|\n\
+\t\t\t\t\t|%3.3lf, %3.3lf, %3.3lf, %3.3lf|\n\
+\t\t\t\t\t|%3.3lf, %3.3lf, %3.3lf, %3.3lf|"
 # define MATRIX_FORMAT_1 "\
-|%6.lf, %6.lf, %6.lf, %6.lf|\n\
-|%6.lf, %6.lf, %6.lf, %6.lf|\n\
-|%6.lf, %6.lf, %6.lf, %6.lf|\n\
-|%6.lf, %6.lf, %6.lf, %6.lf|"
+\t\t\t\t\t|%6.lf, %6.lf, %6.lf, %6.lf|\n\
+\t\t\t\t\t|%6.lf, %6.lf, %6.lf, %6.lf|\n\
+\t\t\t\t\t|%6.lf, %6.lf, %6.lf, %6.lf|\n\
+\t\t\t\t\t|%6.lf, %6.lf, %6.lf, %6.lf|"
 # define MATRIX_FORMAT_2 "\
-|%12.12lf, %12.12lf, %12.12lf, %12.12lf|\n\
-|%12.12lf, %12.12lf, %12.12lf, %12.12lf|\n\
-|%12.12lf, %12.12lf, %12.12lf, %12.12lf|\n\
-|%12.12lf, %12.12lf, %12.12lf, %12.12lf|"
+\t\t\t\t\t|%12.12lf, %12.12lf, %12.12lf, %12.12lf|\n\
+\t\t\t\t\t|%12.12lf, %12.12lf, %12.12lf, %12.12lf|\n\
+\t\t\t\t\t|%12.12lf, %12.12lf, %12.12lf, %12.12lf|\n\
+\t\t\t\t\t|%12.12lf, %12.12lf, %12.12lf, %12.12lf|"
 
 typedef struct s_unravel
 {
@@ -42,5 +42,7 @@ typedef struct s_unravel
 }	t_unravel;
 
 typedef void	(*t_unravels)(t_object *, t_unravel *);
+
+int	unravel_objects_array(t_objects *objects, t_unravel *unravel);
 
 #endif

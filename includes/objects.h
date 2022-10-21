@@ -78,7 +78,7 @@ typedef struct s_light
 {
 	t_tuple		origin;
 	t_transform	transform;
-	t_colour	intensity;
+	t_tuple		intensity;
 	t_fl		ambience;
 }	t_light;
 

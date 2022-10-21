@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 16:02:35 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/20 16:53:25 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/10/21 03:02:03 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ void	test_lighting()
 	material.shininess = 200;
 	material.colour = red;
 
-	light.intensity = (t_colour){ 1.0, 1.0, 1.0, 1.0 };
+	light.intensity = (t_tuple){ .tuple.colour = {1.0, 1.0, 1.0, 1.0 }};
 	light.position.tuple.units = (t_units){ 0.0, 10.0, 0.0, POINT_1 };
 
 	vectors.eye.tuple.units = (t_units){ 0.0, 0.0, -1.0, VECTOR_0 };
@@ -278,13 +278,52 @@ void	test_3D_sphere(void)
 			&transform,
 			&colour
 		);
-	light_source.intensity = (t_colour){ 0.0, 1.0, 1.0, 1.0 };
+	light_source.intensity = (t_tuple){ .tuple.colour = {0.0, 1.0, 1.0, 1.0 }};
 	light_source.position.tuple.units = (t_units){ -10.0, 10.0, -10.0, POINT_1 };
 
 	initialise_window(&win);
 	plot_points(&win, &object_sphere, &light_source);
 	mlx_hook(win.win, KEY_DOWN, 0, handle_input, &win);
 	mlx_loop(win.mlx);
+}
+
+void	test_debug_print()
+{
+	t_transform	transform;
+	t_tuple		red;
+	t_objects	objects;
+
+	objects = (t_objects){.list = (t_object *)malloc(sizeof(t_object) * 10), .count = 1};
+	if (objects.list == NULL)
+		return ;
+	transform = (t_transform)
+	{
+		.translation = (t_tuple)
+		{
+			.tuple.units = (t_units){ 0.0, 1.0, 0.0, POINT_1 }
+		},
+		.rotation = (t_tuple)
+		{
+			.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1 }
+		},
+		.scale = (t_tuple)
+		{
+			.tuple.units = (t_units){ 1.0, 1.0, 1.0, POINT_1 }
+		}
+	};
+	red = hex_to_argb(0xFF0000);
+	objects.list[0] = sphere(
+			&(t_tuple){.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1}},
+			&transform,
+			&red
+		);
+	unravel_objects_array(&objects, &(t_unravel){
+		.fd = -1,
+		.automatic = 1,
+		.verbose = 1,
+		.nests = 0
+	});
+	free(objects.list);
 }
 
 int	main(void)
@@ -294,6 +333,7 @@ int	main(void)
 	// test_normal_at_sphere();
 	// test_reflect();
 	// test_lighting();
+	test_debug_print();
 	test_3D_sphere();
 	return (0);
 }

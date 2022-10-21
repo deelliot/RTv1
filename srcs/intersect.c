@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:14:00 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/21 03:16:16 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 15:36:29 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,31 +103,6 @@ void	sphere_intersection(t_ray *ray, t_object *shape, t_intersections *array, t_
 		.type = OBJECT_SPHERE
 	});
 }*/
-
-t_tuple	hex_to_argb(uint32_t colour)
-{
-	return ((t_tuple){.tuple.colour.a = ((colour >> 24) & 0xFFu) / (t_fl)0xFFu,
-		.tuple.colour.r = ((colour >> 16) & 0xFFu) / (t_fl)0xFFu,
-		.tuple.colour.g = ((colour >> 8) & 0xFFu) / (t_fl)0xFFu,
-		.tuple.colour.b = (colour & 0xFFu) / (t_fl)0xFFu});
-}
-
-static t_fl	truncate_fl(t_fl min, t_fl clamped, t_fl max)
-{
-	if (clamped > max)
-		return (max);
-	else if (clamped < min)
-		return (min);
-	return (clamped);
-}
-
-uint32_t	argb_to_hex(t_tuple *colour)
-{
-	return ((uint32_t)(255 * truncate_fl(0.0, colour->tuple.colour.a, 1.0)) << 24
-		| (uint32_t)(255 * truncate_fl(0.0, colour->tuple.colour.r, 1.0)) << 16
-		| (uint32_t)(255 * truncate_fl(0.0, colour->tuple.colour.g, 1.0)) << 8
-		| (uint32_t)(255 * truncate_fl(0.0, colour->tuple.colour.b, 1.0)));
-}
 
 // int main(void)
 // {

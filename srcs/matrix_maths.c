@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:21:03 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/21 01:08:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 15:32:21 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	matrix_multi_square(t_mtx *mtx, t_mtx *transformation, uint32_t size)
 	t_mtx		temp;
 	uint8_t		i;
 	t_fl		res;
-	t_index		j;
+	t_coords	j;
 
 	j.row = 0;
 	while (j.row < size)

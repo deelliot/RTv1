@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/21 03:16:39 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 15:37:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,15 @@ typedef struct s_intersections
 
 typedef struct s_coords
 {
-	uint32_t	row; //yrow
-	uint32_t	col; //xcol
+	uint32_t	row;
+	uint32_t	col;
 }				t_coords;
+
+typedef struct s_pixel_index
+{
+	t_fl		row;
+	t_fl		col;
+}				t_index;
 
 typedef struct s_win
 {
@@ -129,8 +135,8 @@ int		handle_input(int key, t_win *win);
 
 /* colour and lighting*/
 t_tuple	hex_to_argb(uint32_t colour);
-uint32_t	argb_to_hex(t_tuple *colour);
-void	lighting(t_material *material, t_pt_light *light, t_phong *vectors,
+uint32_t	argb_to_hex(t_colour *colour);
+t_tuple	lighting(t_material material, t_pt_light *light, t_phong vectors,
 	t_tuple *point);
 
 /* object intialisation */
@@ -142,7 +148,7 @@ void	identify_hit(t_intersections *array);
 void	sphere_intersection(t_ray *ray, t_object *shape, t_intersections *array, t_win *win);
 
 /* reflections*/
-t_tuple reflect(t_tuple *input, t_tuple *normal);
+t_tuple	reflect(t_tuple *input, t_tuple *normal);
 
 /* object transformation */
 void	transform_objects(t_objects *objects);
@@ -153,8 +159,8 @@ t_tuple	normal_at_sphere(t_sphere *sphere, t_tuple *point_at);
 /* plot pixels */
 // void	plot_points(t_win *win, t_object *sphere);
 void	plot_points(t_win *win, t_object *sphere, t_pt_light *light);
-void	img_pixel_put(t_win *win, int x, int y, t_tuple *colour);
-// void	img_pixel_put(t_win *win, int x, int y, unsigned int colour);
+// void	img_pixel_put(t_win *win, int x, int y, t_tuple *colour);
+void	img_pixel_put(t_win *win, int x, int y, unsigned int colour);
 
 /* testing */
 void	ft_print_mtx(t_mtx *mtx);

@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 16:16:41 by deelliot          #+#    #+#              #
-#    Updated: 2022/10/21 01:06:06 by thakala          ###   ########.fr        #
+#    Updated: 2022/10/21 15:31:30 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ HDRS = includes/RTv1.h \
 	includes/matrices.h \
 	includes/objects.h \
 	includes/tuple.h
-
 LIBFT_DIR = libft
 MINILIBX_DIR = minilibx
 

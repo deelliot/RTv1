@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:21:03 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/21 15:32:21 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/21 15:40:41 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ int	matrix_comparison(t_fl **a, t_fl **b, uint32_t size)
 
 /* matrix multiplication for two identical 4 x 4 square matrices - eg. 4x4 * 4x4, or
 3 x 3 * 3 x 3*/
-
-typedef struct s_index
-{
-	uint8_t	row;
-	uint8_t	col;
-}	t_index;
 
 void	matrix_multi_square(t_mtx *mtx, t_mtx *transformation, uint32_t size)
 {

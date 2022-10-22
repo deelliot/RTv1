@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 16:02:35 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/22 13:33:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/22 14:34:36 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,7 @@ void	test_lighting_ambient()
 void	test_3D_sphere(void)
 {
 	t_object	object_sphere;
-	t_tuple	colour;
+	t_tuple		colour;
 	t_transform	transform;
 	t_win		win;
 	t_pt_light	light_source;
@@ -316,6 +316,51 @@ void	test_3D_sphere(void)
 	initialise_window(&win);
 	plot_points(&win, &object_sphere, light_source);
 	mlx_hook(win.win, KEY_DOWN, 0, handle_input, &win);
+	mlx_loop(win.mlx);
+}
+
+void	test_movement_agent(void)
+{
+	t_object	object_sphere;
+	t_tuple		colour;
+	t_transform	transform;
+	t_win		win;
+	t_pt_light	light_source;
+
+	win.objects = (t_objects){.list = (t_object *)malloc(sizeof(t_object) * 10), .count = 1};
+	if (win.objects.list == NULL)
+		handle_errors(&win, "test_3D_sphere win.o.list malloc returned NULL");
+	// Not updated below:
+	transform = (t_transform)
+	{
+		.translation = (t_tuple)
+		{
+			.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1 }
+		},
+		.rotation = (t_tuple)
+		{
+			.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1 }
+		},
+		.scale = (t_tuple)
+		{
+			.tuple.units = (t_units){ 1.0, 1.0, 1.0, POINT_1 }
+		}
+	};
+	colour.tuple.units = (t_units){ 0.0, 1.0, 0.2, 1.0 };
+	object_sphere = sphere(
+			&(t_tuple){.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1}},
+			&transform,
+			&colour
+		);
+	light_source.intensity = (t_tuple){ .tuple.colour = {0.0, 1.0, 1.0, 1.0 }};
+	light_source.position.tuple.units = (t_units){ -10.0, 10.0, -10.0, POINT_1 };
+
+	initialise_window(&win);
+	plot_points(&win, &object_sphere, light_source);
+	mlx_hook(win.win, ON_KEY_DOWN, 0, key_handler, &win);
+	mlx_hook(win.win, ON_MOUSE_DOWN, 0, mouse_handler_down, &win);
+	mlx_hook(win.win, ON_MOUSE_MOVE, 0, mouse_handler_move, &win);
+	mlx_hook(win.win, ON_MOUSE_UP, 0, mouse_handler_up, &win);
 	mlx_loop(win.mlx);
 }
 
@@ -365,9 +410,10 @@ int	main(void)
 	// test_normal_at_sphere();
 	// test_reflect();
 	// test_lighting();
-	test_debug_print();
-	test_lighting_angled();
-	test_lighting_ambient();
-	test_3D_sphere();
+	// test_debug_print();
+	// test_lighting_angled();
+	// test_lighting_ambient();
+	// test_3D_sphere();
+	test_movement_agent();
 	return (0);
 }

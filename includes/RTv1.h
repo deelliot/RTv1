@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/22 12:16:33 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/22 14:30:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_win
 	t_img		img;
 	void		*mlx;
 	void		*win;
+	t_objects	objects;
+	t_input		input;
 }	t_win;
 
 /*tuple operations & matrix maths*/
@@ -133,6 +135,12 @@ void	initialise_window(t_win *win);
 
 /* handle input*/
 int		handle_input(int key, t_win *win);
+int		key_handler(int key, t_win *win);
+int		mouse_handler_scroll_up(t_point *mouse, t_win *win);
+int		mouse_handler_scroll_down(t_point *mouse, t_win *win);
+int		mouse_handler_down(int button, int x, int y, t_win *win);
+int		mouse_handler_move(int x, int y, t_win *win);
+int		mouse_handler_up(int button, int x, int y, t_win *win);
 
 /* colour and lighting*/
 t_tuple	hex_to_argb(uint32_t colour);

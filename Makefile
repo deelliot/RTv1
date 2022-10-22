@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 16:16:41 by deelliot          #+#    #+#              #
-#    Updated: 2022/10/21 15:31:30 by thakala          ###   ########.fr        #
+#    Updated: 2022/10/22 14:33:57 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ FILES = \
 	transform_tuple \
 	reflections \
 	debug_print
+#\	debug_input
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(FILES)))

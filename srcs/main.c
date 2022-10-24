@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 16:02:35 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/22 14:34:36 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/24 15:09:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,7 +319,7 @@ void	test_3D_sphere(void)
 	mlx_loop(win.mlx);
 }
 
-void	test_movement_agent(void)
+/*void	test_movement_agent(void)
 {
 	t_object	object_sphere;
 	t_tuple		colour;
@@ -362,7 +362,7 @@ void	test_movement_agent(void)
 	mlx_hook(win.win, ON_MOUSE_MOVE, 0, mouse_handler_move, &win);
 	mlx_hook(win.win, ON_MOUSE_UP, 0, mouse_handler_up, &win);
 	mlx_loop(win.mlx);
-}
+}*/
 
 void	test_debug_print()
 {
@@ -410,10 +410,10 @@ int	main(void)
 	// test_normal_at_sphere();
 	// test_reflect();
 	// test_lighting();
-	// test_debug_print();
+	test_debug_print();
 	// test_lighting_angled();
 	// test_lighting_ambient();
-	// test_3D_sphere();
-	test_movement_agent();
+	//test_3D_sphere();
+	//test_movement_agent();
 	return (0);
 }

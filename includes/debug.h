@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:19:24 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/22 14:32:12 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/24 15:08:03 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_unravel
 }	t_unravel;
 
 
-typedef void	(*t_mouse_move_scalars)(t_win *);
+//typedef void	(*t_mouse_move_scalars)(t_win *);
 
 typedef void	(*t_unravels)(t_object *, t_unravel *);
 

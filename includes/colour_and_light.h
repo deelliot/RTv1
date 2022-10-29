@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 17:34:04 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/21 15:37:38 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/29 11:43:57 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ enum e_colour
 	COLOUR_TURQOUISE = 0x40E0D0U
 };
 
-typedef struct s_pt_light
-{
-	t_tuple		position;
-	t_tuple		intensity;
-}				t_pt_light;
-
 typedef struct s_phong
 {
 	t_tuple	eye;
@@ -38,6 +32,5 @@ typedef struct s_phong
 	t_tuple	surface_normal;
 	t_tuple	reflection;
 }				t_phong;
-
 
 #endif

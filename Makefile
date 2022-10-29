@@ -6,13 +6,13 @@
 #    By: thakala <thakala@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 16:16:41 by deelliot          #+#    #+#              #
-#    Updated: 2022/10/22 14:33:57 by thakala          ###   ########.fr        #
+#    Updated: 2022/10/29 11:44:52 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = RTv1
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 # FLAGS += -fsanitize=address -Wconversion -Ofast -flto
 
 # Directories
@@ -24,7 +24,8 @@ HDRS = includes/RTv1.h \
 	includes/debug.h \
 	includes/matrices.h \
 	includes/objects.h \
-	includes/tuple.h
+	includes/tuple.h \
+	includes/world.h
 LIBFT_DIR = libft
 MINILIBX_DIR = minilibx
 
@@ -44,7 +45,16 @@ FILES = \
 	normals \
 	transform_tuple \
 	reflections \
-	debug_print
+	debug_print \
+	sphere \
+	world \
+	view_transform \
+	shading \
+	camera \
+	ray \
+	render \
+	colour \
+	computations
 #\	debug_input
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))

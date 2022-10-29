@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   intersect.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 16:14:00 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/22 12:16:18 by thakala          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "RTv1.h"
 
 /* circumference of sphere: 2πr.
@@ -18,138 +6,114 @@ Assume for now all spheres are unit spheres, therefore radius of 1
 diameter of sphere: 2 * r
 */
 
-void	identify_hit(t_intersections *array)
+void	identify_hit(t_world *world)
 {
-	int	i;
-	int	hit;
+	t_intersect	*intersection;
+	uint64_t	i;
 
-	i = -1;
-	hit = -1;
-	while (++i < array->num)
+	i = 0;
+
+	world->hit.intersection = NULL;
+	while (i < world->intersections.len)
 	{
-		if (array->intersections[i].time >= 0 && hit == -1)
-		{
-			hit = i;
-			array->intersections[i].hit = 1;
-		}
-		else
-			array->intersections[i].hit = 0;
+		intersection = \
+			(t_intersect *)vec_get(&world->intersections, i++);
+
+		if (intersection->time >= 0)
+			if (world->hit.intersection == NULL \
+				|| intersection->time < world->hit.intersection->time)
+				world->hit.intersection = intersection;
 	}
 }
 
-void	sphere_intersection(t_ray *ray, t_object *shape, t_intersections *array, t_win *win)
-{
-	t_fl	discriminant;
-	t_fl	a;
-	t_fl	b;
-	t_fl	c;
-	t_tuple	sphere_to_ray;
 
-	sphere_to_ray = tuple_sub(ray->origin, shape->object.sphere.origin);
-	a = dot_product(ray->direction, ray->direction);
-	b = 2 * dot_product(ray->direction, sphere_to_ray);
+void	plane_intersection(t_ray ray, void *plane, t_world *world)
+{
+	(void)ray;
+	(void)plane;
+	(void)world;
+}
+
+void	sphere_intersection(t_ray ray, void *sphere, t_world *world)
+{
+	t_fl		discriminant;
+	t_fl		a;
+	t_fl		b;
+	t_fl		c;
+	t_tuple		sphere_to_ray;
+
+	ray = ray_transform(&ray, &((t_sphere *)sphere)->transform.inverse);
+	sphere_to_ray = tuple_sub(ray.origin, ((t_sphere *)sphere)->origin);
+	a = dot_product(ray.direction, ray.direction);
+	b = 2 * dot_product(ray.direction, sphere_to_ray);
 	c = dot_product(sphere_to_ray, sphere_to_ray) - 1;
 	discriminant = (b * b) - 4 * a * c;
-	if (discriminant < 0.0)
+	if (discriminant >= 0.0)
 	{
-		array->num = 0;
-		array->intersections = NULL;
-		return ;
+		if (vec_push(&world->intersections, &(t_intersect){
+				.time = (-b - sqrt(discriminant)) / (2 * a),
+				.shape = sphere
+			}) == VEC_ERROR)
+			handle_errors("vec_push malloc error sphere_intersection");
+		if (vec_push(&world->intersections, &(t_intersect){
+				.time = (-b + sqrt(discriminant)) / (2 * a),
+				.shape = sphere
+			}) == VEC_ERROR)
+			handle_errors("vec_push malloc error sphere_intersection");
 	}
-	else
-	{
-		array->num = 2;
-		array->intersections = (t_intersect *)malloc(sizeof(t_intersect) * 2);
-		if (!array->intersections)
-			handle_errors(win, "intersect malloc fail");
-		if (discriminant <= 1)
-		{
-			array->intersections[0].time = (-b - sqrt(discriminant)) / (2 * a);
-			array->intersections[0].shape = shape;
-			array->intersections[1].time = (-b + sqrt(discriminant)) / (2 * a);
-			array->intersections[1].shape = shape;
-		}
-		else
-		{
-			array->intersections[0].time = (-b - sqrt(discriminant)) / (2 * a);
-			array->intersections[0].shape = shape;
-			array->intersections[1].time = array->intersections[0].time + 2; // radius * 2
-			array->intersections[1].shape = shape;
-		}
-	}
-	identify_hit(array);
 }
 
-/*t_object sphere(t_tuple *origin, t_transform *transform, t_tuple *colour)
+void	cone_intersection(t_ray ray, void *cone, t_world *world)
 {
-	return ((t_object)
+	(void)ray;
+	(void)cone;
+	(void)world;
+}
+
+void	cylinder_intersection(t_ray ray, void *cylinder, t_world *world)
+{
+	(void)ray;
+	(void)cylinder;
+	(void)world;
+}
+
+int sort_intersections(void *xs_a, void *xs_b)
+{
+	t_intersect	*a;
+	t_intersect	*b;
+	t_fl		diff;
+
+	a = (t_intersect *)xs_a;
+	b = (t_intersect *)xs_b;
+	diff = a->time - b->time;
+	if (diff > 0)
+		return (1);
+	else if (diff == 0)
+		return (0);
+	else
+		return (-1);
+
+}
+
+void	intersect_world(t_world *world)
+{
+	static const t_intersect_function	\
+					intersect_object[] = \
 	{
-		.object.sphere = (t_sphere)
-		{
-			.origin = (t_tuple){.tuple.units = (t_units)
-				{origin->tuple.units.x,
-				origin->tuple.units.y,
-				origin->tuple.units.z,
-				origin->tuple.units.w}},
-			.transform = (t_transform){transform->translation,
-				transform->rotation,
-				transform->scale},
-			.colour = (t_tuple){.tuple.colour = (t_colour)
-				{colour->tuple.colour.a,
-				colour->tuple.colour.r,
-				colour->tuple.colour.g,
-				colour->tuple.colour.b}}
-		},
-		.type = OBJECT_SPHERE
-	});
-}*/
+		plane_intersection,
+		sphere_intersection,
+		cone_intersection,
+		cylinder_intersection
+	};
+	uint64_t		i;
 
-// int main(void)
-// {
-// 	t_ray		ray;
-// 	t_objects	objects;
-// 	t_tuple		purple;
-// 	t_transform transform;
-// 	t_object	object_sphere;
-// 	t_intersections array;
-// 	int i;
-
-// 	purple = hex_to_argb(0x4c00b0);
-// 	ray.origin.tuple.units = (t_units){ 0.0, 2.0, -5.0, 1.0 };
-// 	ray.direction.tuple.units = (t_units){ 0.0, 0.0, 1.0, 0.0 };
-// 	transform =(t_transform)
-// 	{
-// 		.translation = (t_tuple)
-// 		{
-// 			.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1 }
-// 		},
-// 		.rotation = (t_tuple)
-// 		{
-// 			.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1 }
-// 		},
-// 		.scale = (t_tuple)
-// 		{
-// 			.tuple.units = (t_units){ 1.0, 1.0, 1.0, POINT_1 }
-// 		}
-// 	};
-// 	objects.list = (t_object *)malloc(sizeof(t_object) * 3);
-// 	if (objects.list == NULL)
-// 		exit(EXIT_FAILURE);
-// 	object_sphere = sphere(
-// 			&(t_tuple){.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1}},
-// 			&transform,
-// 			&purple
-// 		);
-// 	sphere_intersection(&ray, &object_sphere, &array);
-// 	if (array.num > 0)
-// 		printf("time at 1st: %f\ntime at 2nd: %f\n", array.intersections[0].time ,array.intersections[1].time);
-// 	else
-// 		printf("no hits\n");
-// 	i = -1;
-// 	while (++i < array.num)
-// 	{
-// 		if (array.intersections[i].hit == 1)
-// 			printf("time of hit = %f\n", array.intersections[i].time);
-// 	}
-// 	return (0);
-// }
+	i = (uint64_t)(-1);
+	while (++i < world->objects.len)
+	{
+		intersect_object[((t_object *)vec_get(&world->objects, \
+			i))->type - OBJECT_INDEX_OFFSET] \
+			(world->ray, ((t_object *)vec_get(&world->objects, \
+			i)), world);
+	}
+	vec_sort(&world->intersections, sort_intersections);
+}

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix_transformations.c                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 11:03:46 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/19 12:40:38 by deelliot         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "RTv1.h"
 
 /*
@@ -159,6 +147,15 @@ t_ray	ray_scale(t_ray ray, t_tuple transform)
 	new.origin = scale_tuple(&ray.origin, &transform);
 	new.direction = scale_tuple(&ray.direction, &transform);
 	return (new);
+}
+
+t_ray	ray_transform(t_ray *ray, t_mtx *transform)
+{
+	t_ray	result;
+
+	result.origin = matrix_tuple_multi(transform, &ray->origin);
+	result.direction = matrix_tuple_multi(transform, &ray->direction);
+	return (result);
 }
 
 /*t_mtx	*translate(t_tuple tuple, t_mtx *transform, t_tuple vector)

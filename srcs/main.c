@@ -326,6 +326,7 @@ void	test_3D_sphere(void)
 	mlx_loop(win.mlx);
 }*/
 
+/*
 void	test_debug_print()
 {
 	t_transform	transform;
@@ -364,8 +365,9 @@ void	test_debug_print()
 	});
 	free(objects.list);
 }
+*/
 
-int	main(void)
+// int	main(void)
 // 	win.world.objects = (t_objects){.list = (t_object *)malloc(sizeof(t_object) * 1), .count = 1};
 // 	if (win.world.objects.list == NULL)
 // 		handle_errors("test_3d_sphere_transformed win.world.objects.list malloc failed");
@@ -1026,7 +1028,7 @@ void	tests(void)
 	// test_normal_at_sphere();
 	// test_reflect();
 	// test_lighting();
-	test_debug_print();
+	// test_debug_print();
 	// test_lighting_angled();
 	// test_lighting_ambient();
 	//test_3D_sphere();
@@ -1042,6 +1044,12 @@ void	tests(void)
 	// test_camera();
 }
 
+int	close_success(void)
+{
+	handle_errors("Great success!\n");
+	return (EXIT_SUCCESS);
+}
+
 int	main(void)
 {
 	t_win	win;
@@ -1055,7 +1063,12 @@ int	main(void)
 	// test_colour_at(&win);
 	test_render(&win);
 	// plot_points(&win);
-	mlx_hook(win.win, KEY_DOWN, 0, handle_input, &win);
+	// mlx_hook(win.win, KEY_DOWN, 0, handle_input, &win);
+	mlx_hook(win.win, ON_KEY_DOWN, 0, key_handler, &win);
+	mlx_hook(win.win, ON_DESTROY, 0, close_success, &win);
+	mlx_hook(win.win, ON_MOUSE_DOWN, 0, mouse_handler_down, &win);
+	mlx_hook(win.win, ON_MOUSE_MOVE, 0, mouse_handler_move, &win);
+	mlx_hook(win.win, ON_MOUSE_UP, 0, mouse_handler_up, &win);
 	mlx_loop(win.mlx);
 	return (0);
 }

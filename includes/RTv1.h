@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/29 11:44:30 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/29 13:15:56 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include "tuple.h"
 # include "matrices.h"
 # include "colour_and_light.h"
-#include "debug.h"
 # include "objects.h"
 # include "world.h"
+#include "debug.h"
 
 # define USAGE "<instructions>"
 # define WIDTH 201
@@ -55,13 +55,13 @@ typedef struct s_pixel_index
 	t_fl		col;
 }				t_index;
 
-
 typedef struct s_win
 {
 	t_img		img;
 	void		*mlx;
 	void		*win;
 	t_world		world;
+	t_input		input;
 }	t_win;
 
 typedef void	(*t_intersect_function)(t_ray, void *, t_world *);
@@ -185,5 +185,7 @@ t_ray	ray_for_pixel(t_camera *camera, t_canvas position);
 void	prepare_computations(t_world *world);
 t_tuple	colour_at(t_world *world);
 void	render(t_win *win, t_camera *camera);
+
+void	print_tuple(t_tuple *tuple, uint8_t indent_level, const char *description);
 
 #endif

@@ -6,15 +6,44 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:52:00 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/22 14:33:32 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/29 13:52:11 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RTv1.h"
 
+void	realign_camera(t_win *win)
+{
+	static int64_t	z = -5;
+
+	// win->world.camera.origin = point(0, 0, z--);
+	printf("%lli\n", z);
+	win->world.camera.transform.rotation = (t_tuple){.tuple.rotation = {
+		.x_wid_lat_pitch = win->input.mouse.diff.row * 0.007 \
+			+ win->world.camera.transform.rotation.tuple.rotation.x_wid_lat_pitch,
+		.y_hei_vert_yaw = win->input.mouse.diff.col * 0.007 \
+			+ win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw,
+	}};
+	print_tuple(&win->world.camera.transform.rotation, 0, "");
+	win->world.camera.transform.matrix = identity_matrix();
+	translate(&win->world.camera.transform.matrix, &win->world.camera.transform.translation);
+	scale(&win->world.camera.transform.matrix, &win->world.camera.transform.scale);
+	rotate(&win->world.camera.transform.matrix, &win->world.camera.transform.rotation);
+	win->world.camera.transform.inverse = win->world.camera.transform.matrix;
+	matrix_inversion(&win->world.camera.transform.inverse, 4);
+	win->world.camera.origin = matrix_tuple_multi(&win->world.camera.transform.inverse, &win->world.camera.origin);
+	// win->world.camera.transform.matrix = view_transform(win->world.camera.origin, point(0, 0, 0), vector(0, 1, 0));
+	win->world.camera.center_of_interest = point(0, 0, 0);
+}
+
+
 void	navigate_camera(t_win *win)
 {
-	win->objects.list[win->input.item_idx]
+	(void)win;
+	//win->objects.list[win->input.item_idx]
+	realign_camera(win);
+	render(win, &win->world.camera);
+
 }
 
 int	apply_mouse_move_scalar(t_win *win)
@@ -24,12 +53,14 @@ int	apply_mouse_move_scalar(t_win *win)
 	};
 
 	mouse_move_scalars[win->input.mode](win);
+	return (TRUE);
 }
 
 int	key_handler(int key, t_win *win)
 {
 	(void)key;
 	(void)win;
+	printf("key: %i\n", key);
 	return (0);
 }
 

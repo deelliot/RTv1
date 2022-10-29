@@ -41,6 +41,16 @@ void	initialise_world(t_world *world)
 	default_world(world);
 }
 
+void	initialise_input(t_win *win)
+{
+	win->input.mouse = (t_mouse){
+		.rmb_is_down = FALSE,
+		.curr = {0, 0},
+		.prev = {0, 0},
+		.diff = {0, 0}};
+	win->input.keyboard.cmd_is_toggled = FALSE;
+}
+
 void	initialise_window(t_win *win)
 {
 	win->mlx = mlx_init();
@@ -50,6 +60,7 @@ void	initialise_window(t_win *win)
 	if (!win->win)
 		handle_errors("error");
 	initialise_image(&win->img, win);
+	initialise_input(win);
 	// background_colour(win);
 }
 

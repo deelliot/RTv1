@@ -6,12 +6,12 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:12:35 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/21 01:56:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/29 11:48:25 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RTv1.h"
-
+/*
 static void	fd_retryer(int *fd, char template[])
 {
 	uint8_t	t;
@@ -104,10 +104,8 @@ static void	unravel_plane(t_object *object, t_unravel *unravel)
 	dprintf(unravel->fd, "\n");
 }
 
-/*
-Verbose mode in parallel to also print out the calculated matrices?
-Perhaps debug them elsewhere to keep this as a configuration file generator?
-*/
+// Verbose mode in parallel to also print out the calculated matrices?
+// Perhaps debug them elsewhere to keep this as a configuration file generator?
 
 static void	unravel_sphere(t_object *object, t_unravel *unravel)
 {
@@ -269,3 +267,4 @@ int	unravel_objects_array(t_objects *objects, t_unravel *unravel)
 	}
 	return (EXIT_SUCCESS);
 }
+*/

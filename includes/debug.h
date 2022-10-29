@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:19:24 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/24 15:08:03 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/29 12:15:35 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 \t\t\t\t\t|%12.12lf, %12.12lf, %12.12lf, %12.12lf|\n\
 \t\t\t\t\t|%12.12lf, %12.12lf, %12.12lf, %12.12lf|\n\
 \t\t\t\t\t|%12.12lf, %12.12lf, %12.12lf, %12.12lf|"
+
+typedef struct s_win t_win;
 
 typedef enum e_bool
 {
@@ -63,6 +65,10 @@ enum e_mouse
 
 enum e_key
 {
+	KEY_W = 13,
+	KEY_A = 0,
+	KEY_S = 1,
+	KEY_D = 2,
 	KEY_COLOUR = 8,
 	KEY_ESC = 53,
 	KEY_L_CMD = 259,
@@ -93,7 +99,7 @@ typedef struct s_mouse
 
 typedef struct s_keyboard
 {
-	uint8_t	cmd_toggled : 1;
+	uint8_t	cmd_is_toggled : 1;
 }	t_keyboard;
 
 typedef struct s_user_inputs
@@ -113,10 +119,10 @@ typedef struct s_unravel
 }	t_unravel;
 
 
-//typedef void	(*t_mouse_move_scalars)(t_win *);
+typedef void	(*t_mouse_move_scalars)(t_win *);
 
 typedef void	(*t_unravels)(t_object *, t_unravel *);
 
-int	unravel_objects_array(t_objects *objects, t_unravel *unravel);
+int	unravel_world(t_world *world, t_unravel *unravel);
 
 #endif

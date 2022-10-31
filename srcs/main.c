@@ -624,10 +624,15 @@ void	print_camera(t_camera *camera, uint8_t indent_level)
 
 void	print_ray(t_ray *ray, uint8_t indent_level)
 {
+	t_tuple	temp;
+
+
 	print_indented(indent_level, "RAY\n");
 	print_indented(indent_level, "{\n");
 	print_tuple(&ray->origin, indent_level + 1, "ray->origin");
 	print_tuple(&ray->direction, indent_level + 1, "ray->direction");
+	temp = tuple_add(ray->origin, ray->direction);
+	print_tuple(&temp, indent_level + 1, "canvas pixel");
 	print_indented(indent_level, "}\n");
 }
 
@@ -635,6 +640,7 @@ void test_camera_construction(void)
 {
 	t_camera	cam;
 
+	printf("");
 	cam = camera((t_canvas){.vertical = 120, .horizontal = 160}, (t_fl)M_PI_2);
 	print_camera(&cam, 0);
 }
@@ -1041,7 +1047,7 @@ void	tests(void)
 	// test_view_transform();
 	// test_lighting();
 //	test_shading();
-	// test_camera();
+	test_camera();
 }
 
 int	close_success(void)
@@ -1056,7 +1062,7 @@ int	main(void)
 
 	// if (argc != 2)
 	//  	handle_errors(USAGE);
-	tests();
+	// tests();
 	initialise_world(&win.world);
 	// parse(&win);
 	initialise_window(&win);

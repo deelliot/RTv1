@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/31 14:03:12 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/31 14:55:53 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 #include "debug.h"
 
 # define USAGE "<instructions>"
-# define WIDTH 400
-# define HEIGHT 200
+# define WIDTH 201
+# define HEIGHT 101
 # define WALL_WIDTH 7
 # define WALL_HEIGHT 7
 # define KEY_DOWN 2

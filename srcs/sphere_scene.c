@@ -206,6 +206,8 @@ void	sphere_world(t_world *world)
 	world->camera.transform.matrix = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 	world->camera.transform.inverse = world->camera.transform.matrix;
 	matrix_inversion(&world->camera.transform.inverse, 4);
+	print_matrix(&world->camera.transform.matrix, 0, "world->camera.transform.matrix");
+	print_matrix(&world->camera.transform.matrix, 0, "world->camera.transform.inverse");
 	floor = sphere(default_origin(), floor_transform(), floor_mat());
 	left_wall = sphere(default_origin(), left_wall_transform(), left_wall_mat());
 	right_wall = sphere(default_origin(), right_wall_transform(), right_wall_mat());

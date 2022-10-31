@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:19:24 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/29 12:15:35 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/31 18:20:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,7 @@ typedef void	(*t_mouse_move_scalars)(t_win *);
 typedef void	(*t_unravels)(t_object *, t_unravel *);
 
 int	unravel_world(t_world *world, t_unravel *unravel);
-
+void	print_ray(t_ray *ray, uint8_t indent_level);
+void	print_camera(t_camera *camera, uint8_t indent_level);
+void	print_matrix(t_mtx *mtx, uint8_t indent_level, const char *description);
 #endif

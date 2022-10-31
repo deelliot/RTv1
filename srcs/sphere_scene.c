@@ -5,6 +5,11 @@ t_canvas	scene_canvas(void)
 	return ((t_canvas){.vertical = HEIGHT, .horizontal = WIDTH});
 }
 
+t_canvas	default_canvas(void)
+{
+	return ((t_canvas){.vertical = HEIGHT, .horizontal = WIDTH});
+}
+
 t_tuple	default_origin(void)
 {
 	return (point(0, 0, 0));
@@ -95,6 +100,36 @@ t_material	floor_mat(void)
 	});
 }
 
+t_material	left_wall_mat(void)
+{
+	return ((t_material){
+		.ambient = 0.1,
+		.diffuse = 0.7,
+		.specular = 0.0,
+		.shininess = 200,
+		.colour = colour(1.0, 1.0, 0.0, 0.0),
+		.col_mash = vector(0, 0, 0),
+		.amb_col = vector(0, 0, 0),
+		.dif_col = vector(0, 0, 0),
+		.spec_col = vector(0, 0, 0)
+	});
+}
+
+t_material	right_wall_mat(void)
+{
+	return ((t_material){
+		.ambient = 0.1,
+		.diffuse = 0.7,
+		.specular = 0.0,
+		.shininess = 200,
+		.colour = colour(1.0, 0.0, 1.0, 0.0),
+		.col_mash = vector(0, 0, 0),
+		.amb_col = vector(0, 0, 0),
+		.dif_col = vector(0, 0, 0),
+		.spec_col = vector(0, 0, 0)
+	});
+}
+
 t_transform	sphere_2_transform(void)
 {
 	t_transform	d;
@@ -172,8 +207,8 @@ void	sphere_world(t_world *world)
 	world->camera.transform.inverse = world->camera.transform.matrix;
 	matrix_inversion(&world->camera.transform.inverse, 4);
 	floor = sphere(default_origin(), floor_transform(), floor_mat());
-	left_wall = sphere(default_origin(), left_wall_transform(), floor_mat());
-	right_wall = sphere(default_origin(), right_wall_transform(), floor_mat());
+	left_wall = sphere(default_origin(), left_wall_transform(), left_wall_mat());
+	right_wall = sphere(default_origin(), right_wall_transform(), right_wall_mat());
 	sphere_1 = sphere(default_origin(), sphere_1_transform(), sphere_1_mat());
 	sphere_2 = sphere(default_origin(), sphere_2_transform(), sphere_2_mat());
 	sphere_3 = sphere(default_origin(), sphere_3_transform(), sphere_3_mat());

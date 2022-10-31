@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RTv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
+/*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/31 04:34:52 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/31 12:12:55 by deelliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,5 @@ t_tuple	colour_at(t_world *world);
 void	render(t_win *win, t_camera *camera);
 
 void	print_tuple(t_tuple *tuple, uint8_t indent_level, const char *description);
-
+void	print_world(t_world *world, t_camera *camera);
 #endif

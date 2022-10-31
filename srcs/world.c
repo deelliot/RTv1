@@ -5,6 +5,11 @@ static t_tuple	default_origin(void)
 	return (point(0, 0, 0));
 }
 
+static t_tuple	origin_1(void)
+{
+	return (point(5, 0, 0));
+}
+
 static t_canvas	default_canvas(void)
 {
 	return ((t_canvas){.vertical = HEIGHT, .horizontal = WIDTH});
@@ -81,7 +86,7 @@ void	default_world(t_world *world)
 	world->camera = camera(default_canvas(), M_PI_2);
 	sphere_1 = sphere(default_origin(), default_transform_1(),
 			default_material_1());
-	sphere_2 = sphere(default_origin(), default_transform_2(),
+	sphere_2 = sphere(origin_1(), default_transform_2(),
 			default_material_1());
 	if (vec_push(&world->objects, &sphere_1) == VEC_ERROR)
 		handle_errors("unable to malloc for world object");

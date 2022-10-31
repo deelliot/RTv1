@@ -814,7 +814,7 @@ void	print_sphere(t_object *sphere, uint8_t indent_level, uint64_t object_index)
 	print_tuple(&sphere->object.sphere.origin, indent_level + 1, "sphere->object.sphere.origin");
 	print_transform(&sphere->object.sphere.transform, indent_level + 1, "sphere->object.sphere.transform");
 	print_material(&sphere->object.sphere.material, indent_level + 1, "sphere->object.sphere.material");
-	print_computations(&sphere->object.sphere.comp, indent_level + 1, "sphere->object.sphere.comp");
+	// print_computations(&sphere->object.sphere.comp, indent_level + 1, "sphere->object.sphere.comp");
 	print_indented(indent_level, "}\n");
 }
 

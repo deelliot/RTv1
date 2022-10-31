@@ -8,8 +8,8 @@ t_object	sphere(t_tuple origin, t_transform transform, t_material material)
 			{
 				.origin = origin,
 				.transform = transform,
-				.material = material,
-				.comp = (t_comp){.type = OBJECT_SPHERE}
+				.material = material
+				// .comp = (t_comp){.type = OBJECT_SPHERE}
 			},
 			.type = OBJECT_SPHERE
 		}

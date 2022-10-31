@@ -42,7 +42,7 @@ t_transform	left_wall_transform(void)
 	t_transform	d;
 
 	d.translation = point(0, 0, 5);
-	d.rotation = point(M_PI_2, (- M_PI_4), 0);
+	d.rotation = point(M_PI_2, 0, (- M_PI_4));
 	d.scale = point(10, 0.01, 10);
 	transform_object(&d);
 	return (d);
@@ -53,7 +53,7 @@ t_transform	right_wall_transform(void)
 	t_transform	d;
 
 	d.translation = point(0, 0, 5);
-	d.rotation = point(M_PI_2, M_PI_4, 0);
+	d.rotation = point(M_PI_2, 0, M_PI_4);
 	d.scale = point(10, 0.01, 10);
 	transform_object(&d);
 	return (d);

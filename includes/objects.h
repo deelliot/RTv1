@@ -70,7 +70,7 @@ typedef struct s_plane
 	t_transform	transform;
 	t_tuple		normal;
 	t_material	material;
-	t_comp		comp;
+	// t_comp		comp;
 }	t_plane;
 
 typedef struct s_sphere
@@ -78,7 +78,7 @@ typedef struct s_sphere
 	t_tuple		origin;
 	t_transform	transform;
 	t_material	material;
-	t_comp		comp;
+	// t_comp		comp;
 }	t_sphere;
 
 typedef struct s_cone
@@ -86,7 +86,7 @@ typedef struct s_cone
 	t_tuple		origin;
 	t_transform	transform;
 	t_material	material;
-	t_comp		comp;
+	// t_comp		comp;
 }	t_cone;
 
 typedef struct s_cylinder
@@ -95,7 +95,7 @@ typedef struct s_cylinder
 	t_transform	transform;
 	t_fl		radius;
 	t_material	material;
-	t_comp		comp;
+	// t_comp		comp;
 }	t_cylinder;
 
 typedef struct s_light

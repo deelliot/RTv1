@@ -48,7 +48,7 @@ t_camera	camera(t_canvas size, t_fl field_of_view)
 
 	cam.origin = point(0, 0, -5);
 	cam.transform = default_transform();
-	cam.transform.rotation = (t_tuple){.tuple.units = {0, M_PI_4, 0, POINT_1}};
+	cam.transform.rotation = (t_tuple){.tuple.units = {0, 0, -M_PI_4, POINT_1}};
 	rotate(&cam.transform.matrix, &cam.transform.rotation);
 	to_from = tuple_sub(cam.origin, (t_tuple){.tuple.units = {0, 0, -1, POINT_1}});
 	to = matrix_tuple_multi(&cam.transform.matrix, &to_from);
@@ -62,4 +62,3 @@ t_camera	camera(t_canvas size, t_fl field_of_view)
 		.horizontal = size.horizontal};
 	return (cam);
 }
-

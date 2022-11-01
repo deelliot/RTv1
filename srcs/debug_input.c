@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:52:00 by thakala           #+#    #+#             */
-/*   Updated: 2022/10/31 19:14:15 by thakala          ###   ########.fr       */
+/*   Updated: 2022/10/31 19:38:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	realign_camera(t_win *win)
 		//.y_hei_vert_yaw = win->input.mouse.diff.col * 0.007 \
 			//+ win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw,
 	}};
-	print_tuple(&win->world.camera.transform.rotation, 0, "camera.transform.rotation");
-	print_tuple(&(t_tuple){.tuple.units = {.x = win->input.mouse.diff.row * 0.007, .y = win->input.mouse.diff.col * 0.007}}, 0, "mouse.diff {x, y}");
+//	print_tuple(&win->world.camera.transform.rotation, 0, "camera.transform.rotation");
+//	print_tuple(&(t_tuple){.tuple.units = {.x = win->input.mouse.diff.row * 0.007, .y = win->input.mouse.diff.col * 0.007}}, 0, "mouse.diff {x, y}");
 	win->world.camera.transform.matrix = identity_matrix();
 	win->world.camera.origin = point(0, 1.5, -5);
 	rotate(&win->world.camera.transform.matrix, &win->world.camera.transform.rotation);

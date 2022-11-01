@@ -46,7 +46,7 @@ t_camera	camera(t_canvas size, t_fl field_of_view)
 	// t_tuple		to_from;
 	// t_tuple		to;
 
-	cam.origin = point(0, 0, -5);
+	cam.origin = point(0, 1.5, -5);
 	cam.transform = default_transform();
 	/*cam.transform.rotation = (t_tuple){.tuple.units = {0, 0, 0, POINT_1}};
 	rotate(&cam.transform.matrix, &cam.transform.rotation);

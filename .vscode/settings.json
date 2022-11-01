@@ -15,6 +15,7 @@
 		"algorithm": "c",
 		"__locale": "c",
 		"__node_handle": "c",
-		"debug.h": "c"
+		"debug.h": "c",
+		"locale": "c"
 	}
 }

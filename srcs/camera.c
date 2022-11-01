@@ -37,6 +37,18 @@ static t_fl	get_pixel_size(t_camera *camera, t_canvas size, t_fl field_of_view)
 // 		.horizontal = size.horizontal};
 // 	return (cam);
 // }
+t_camera	camera(t_tuple origin, t_transform transform, t_fl field_of_view, t_canvas size)
+{
+	t_camera camera;
+
+	camera.origin = origin;
+	camera.transform = transform;
+	camera.center_of_interest =  point(0, 0, 0);
+	camera.field_of_view = field_of_view,
+	camera.size = (t_canvas){.vertical = size.vertical, .horizontal = size.horizontal};
+	camera.pixel_size = get_pixel_size(& camera, size, field_of_view);
+	return (camera);
+}
 
 /*support for matrix transformation, for now: rotation*/
 

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/10/31 14:55:53 by thakala          ###   ########.fr       */
+/*   Updated: 2022/11/01 10:36:28 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,14 @@ uint32_t	argb_to_hex(t_colour *colour);
 t_tuple shade_hit(t_world *world);
 t_tuple	lighting(t_material material, t_light *light, t_phong vectors,
 	t_tuple point);
+void	is_shadow(t_world *world, t_tuple point, t_light *light);
 
 /* object intialisation */
 t_object	sphere(t_tuple origin, t_transform transform, t_material material);
 
 /* object intersection */
-void	intersect_world(t_world *world);
-void	identify_hit(t_world *world);
+void	intersect_world(t_world *world, t_ray ray);
+void	identify_hit(t_world *world, t_hit *hit);
 // void	sphere_intersection(t_ray *ray, t_object *shape, t_intersections *array);
 //void	sphere_intersection(t_ray *ray, t_object *shape, t_intersections *array, t_win *win);
 // void	sphere_intersection(t_ray *ray, t_object *shape, t_intersections *array);
@@ -182,7 +183,8 @@ void	sphere_world(t_world *world);
 t_transform	default_transform(void);
 
 /* camera */
-t_camera	camera(t_canvas size, t_fl field_of_view);
+// t_camera	camera(t_canvas size, t_fl field_of_view);
+t_camera	camera(t_tuple origin, t_transform transform, t_fl field_of_view, t_canvas size);
 t_ray	ray_for_pixel(t_camera *camera, t_canvas position);
 void	prepare_computations(t_world *world);
 t_tuple	colour_at(t_world *world);

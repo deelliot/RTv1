@@ -873,7 +873,7 @@ void	test_render(t_win *win)
 	render(win, &win->world.camera);
 }
 
-/*void	lighting_1(void)
+void	lighting_1(void)
 {
 	// t_world	world;
 	t_tuple	pixel_point;
@@ -910,10 +910,10 @@ void	test_render(t_win *win)
 	pixel_point.tuple.units = (t_units){ 0.0, 0.0, 0.0, POINT_1};
 	comps.vectors.eye.tuple.units = (t_units){ 0.0, 0.0, -1.0, VECTOR_0};
 	comps.vectors.surface_normal.tuple.units = (t_units){ 0.0, 0.0, -1.0, VECTOR_0};
+	comps.vectors.in_shadow = 0;
 	light.position.tuple.units = (t_units){0.0, 0.0, -10, POINT_1};
 	light.intensity.tuple.units = (t_units){1.0, 1.0, 1.0, POINT_1};
 	final_colour = lighting(object_sphere.object.sphere.material, &light, comps.vectors, pixel_point);
-	// colour = lighting(((t_object *)vec_get(&world.objects, 0))->object.sphere.material, &light, comps.vectors, point);
 	printf("colour: %f, %f, %f, %f\n", final_colour.tuple.units.x, final_colour.tuple.units.y, final_colour.tuple.units.z, final_colour.tuple.units.w);
 }
 
@@ -1010,22 +1010,53 @@ void	test_lighting(void)
 	lighting_1();
 	lighting_2();
 	lighting_3();
-}*/
+}
 
-void	test_shading(void)
+static t_transform	default_transform_1(void)
 {
-	t_tuple	final_colour;
-	t_world	world;
+	t_transform	d;
+
+	d.translation = point(0, 0, 0);
+	d.rotation = point(0, 0, 0);
+	d.scale = point(1, 1, 1);
+	transform_object(&d);
+	return (d);
+}
+
+void test_shadow(void)
+{
+	t_world world;
+	t_tuple	p;
+
+	t_light	light;
+
+	light.position = point(-2, 2, -2);
+	light.intensity = colour(1, 1, 1, 1);
+	light.transform = default_transform_1();
 
 	initialise_world(&world);
-	world.ray.origin.tuple.units = (t_units){ 0.0, 0.0, -5.0, POINT_1};
-	world.ray.direction.tuple.units = (t_units){ 0.0, 0.0, 1.0, VECTOR_0};
-	intersect_world(&world);
-	identify_hit(&world);
-	prepare_computations(&world);
-	final_colour = shade_hit(&world);
-	printf("colour: %f, %f, %f, %f\n", final_colour.tuple.units.x, final_colour.tuple.units.y, final_colour.tuple.units.z, final_colour.tuple.units.w);
+	default_world(&world);
+	p.tuple.units = (t_units){0, 10, 0, POINT_1};
+	is_shadow(&world, p, &light);
+	if (world.shadow_hit.computations.vectors.in_shadow == 1)
+		printf("in shadow\n");
+	else
+		printf("false\n");
 }
+// void	test_shading(void)
+// {
+// 	t_tuple	final_colour;
+// 	t_world	world;
+
+// 	initialise_world(&world);
+// 	world.ray.origin.tuple.units = (t_units){ 0.0, 0.0, -5.0, POINT_1};
+// 	world.ray.direction.tuple.units = (t_units){ 0.0, 0.0, 1.0, VECTOR_0};
+// 	intersect_world(&world);
+// 	identify_hit(&world);
+// 	prepare_computations(&world);
+// 	final_colour = shade_hit(&world);
+// 	printf("colour: %f, %f, %f, %f\n", final_colour.tuple.units.x, final_colour.tuple.units.y, final_colour.tuple.units.z, final_colour.tuple.units.w);
+// }
 
 void	tests(void)
 {
@@ -1047,6 +1078,9 @@ void	tests(void)
 	// test_view_transform();
 	// test_lighting();
 //	test_shading();
+	// test_shadow();
+	//	test_shading();
+	// test_camera();
 	test_camera();
 }
 
@@ -1062,8 +1096,8 @@ int	main(void)
 
 	// if (argc != 2)
 	//  	handle_errors(USAGE);
-	// tests();
-	initialise_world(&win.world);
+	//tests();
+	 initialise_world(&win.world);
 	// parse(&win);
 	initialise_window(&win);
 	// test_colour_at(&win);
@@ -1075,6 +1109,8 @@ int	main(void)
 	mlx_hook(win.win, ON_MOUSE_DOWN, 0, mouse_handler_down, &win);
 	mlx_hook(win.win, ON_MOUSE_MOVE, 0, mouse_handler_move, &win);
 	mlx_hook(win.win, ON_MOUSE_UP, 0, mouse_handler_up, &win);
+	// // plot_points(&win);
+	// mlx_hook(win.win, KEY_DOWN, 0, handle_input, &win);
 	mlx_loop(win.mlx);
 	return (0);
 }

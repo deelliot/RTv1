@@ -15,6 +15,11 @@ t_tuple	default_origin(void)
 	return (point(0, 0, 0));
 }
 
+static t_tuple	camera_origin(void)
+{
+	return (point(0, 1.5, -5));
+}
+
 static t_transform	default_transform_1(void)
 {
 	t_transform	d;
@@ -182,13 +187,24 @@ t_material	sphere_3_mat(void)
 	});
 }
 
-static t_light	default_light(void)
+t_light	default_light(void)
 {
 	return ((t_light){
 		.position = point(-10, 10, -10),
 		.intensity = colour(1, 1, 1, 1),
 		.transform = default_transform_1(),
 	});
+}
+
+static t_transform	camera_transform(void)
+{
+	t_transform	d;
+
+	d.translation = point(-1, 0, 0);
+	d.rotation = point(0, 0, 0);
+	d.scale = point(1, 1, 1);
+	transform_object(&d);
+	return (d);
 }
 
 void	sphere_world(t_world *world)
@@ -200,14 +216,14 @@ void	sphere_world(t_world *world)
 	t_object	sphere_2;
 	t_object	sphere_3;
 	t_light		light;
+	t_mtx		view_matrix;
 
 	light = default_light();
-	world->camera = camera(scene_canvas(), 1.0471975512);
-	world->camera.transform.matrix = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+	world->camera = camera(camera_origin(), camera_transform(), M_PI_2, default_canvas());
+	view_matrix = view_transform(world->camera.origin, world->camera.center_of_interest, vector(0, 1, 0));
+	matrix_multi_square(&world->camera.transform.matrix, &view_matrix, 4);
 	world->camera.transform.inverse = world->camera.transform.matrix;
 	matrix_inversion(&world->camera.transform.inverse, 4);
-	print_matrix(&world->camera.transform.matrix, 0, "world->camera.transform.matrix");
-	print_matrix(&world->camera.transform.matrix, 0, "world->camera.transform.inverse");
 	floor = sphere(default_origin(), floor_transform(), floor_mat());
 	left_wall = sphere(default_origin(), left_wall_transform(), left_wall_mat());
 	right_wall = sphere(default_origin(), right_wall_transform(), right_wall_mat());

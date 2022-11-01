@@ -636,6 +636,7 @@ void	print_ray(t_ray *ray, uint8_t indent_level)
 	print_indented(indent_level, "}\n");
 }
 
+/*
 void test_camera_construction(void)
 {
 	t_camera	cam;
@@ -707,16 +708,16 @@ void	test_camera(void)
 	test_camera_ray_corner_of_canvas();
 	test_camera_ray_transformed();
 }
+*/
 
-
-static void	vec_print(void *data_point)
+void	vec_print(void *data_point)
 {
 	t_intersect	*xs;
 
 	xs = (t_intersect *)data_point;
 	printf("time %lf\n", xs->time);
 }
-
+/*
 void	test_colour_at(t_win *win)
 {
 	t_camera cam;
@@ -726,7 +727,7 @@ void	test_colour_at(t_win *win)
 	colour_at(&win->world);
 	vec_iter(&win->world.intersections, vec_print);
 	//printf(world->hit);
-}
+}*/
 
 void	print_material(t_material *material, uint8_t indent_level, const char *description)
 {
@@ -1081,7 +1082,7 @@ void	tests(void)
 	// test_shadow();
 	//	test_shading();
 	// test_camera();
-	test_camera();
+	//test_camera();
 }
 
 int	close_success(void)

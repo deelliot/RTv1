@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+         #
+#    By: thakala <thakala@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 16:16:41 by deelliot          #+#    #+#              #
-#    Updated: 2022/10/29 15:51:48 by deelliot         ###   ########.fr        #
+#    Updated: 2022/11/01 19:53:19 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = RTv1
 
+CC = gcc
 FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 # FLAGS += -fsanitize=address -Wconversion -Ofast -flto
 
@@ -77,16 +78,28 @@ LINKS = \
 #Rules
 all: $(NAME)
 
-$(NAME): .prerequisites $(LIBS) $(OBJS) Makefile
-	touch .prerequisites
-	gcc $(FLAGS) $(INCS) $(LINKS) $(OBJS) -o $(NAME)
+valgrind_debian: CC := docker run --rm --workdir $(HOME) --entrypoint $(CC) -v $(shell pwd):$(HOME) mooreryan/valgrind
+valgrind_debian: PREREQUISITES = .prerequisites_debian
+valgrind_debian: fclean libft_debian all
+
+libft_debian:
+	make -C $(LIBFT_DIR) valgrind_debian
+
+$(NAME): $(PREREQUISITES) $(LIBS) $(OBJS) Makefile
+	touch $(PREREQUISITES)
+	$(CC) $(FLAGS) $(INCS) $(LINKS) $(OBJS) -o $(NAME)
 	@echo "Usage: ./RTV1 + option"
 	@echo "options: >> ??"
 
 $(OBJS): $(OBJS_DIR)%.o:$(SRCS_DIR)%.c $(HDRS) Makefile
-	gcc $(FLAGS) $(INCS) -o $@ -c $<
+	$(CC) $(FLAGS) $(INCS) -o $@ -c $<
 
+PREREQUISITES = .prerequisites
 .prerequisites: $(OBJS_DIR)
+	/bin/rm -f .prerequisites_debian
+
+.prerequisites_debian: $(OBJS_DIR)
+	/bin/rm -f .prerequisites
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
@@ -107,4 +120,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re valgrind_debian libft_debian

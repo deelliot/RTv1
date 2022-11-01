@@ -6,12 +6,13 @@
 #    By: thakala <thakala@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/03 13:04:07 by deelliot          #+#    #+#              #
-#    Updated: 2022/10/27 12:58:25 by thakala          ###   ########.fr        #
+#    Updated: 2022/11/01 19:52:41 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
+CC = gcc
 FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 # Directories
@@ -91,23 +92,34 @@ obj-rule:
 	@mkdir -p $(OBJ_DIR)/$(INPUT_DIR)
 	@mkdir -p $(OBJ_DIR)/$(GRAPHICS_DIR)
 
-$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	@gcc -c -I $(INC_DIR) $(FLAGS) -o $@  $<
+valgrind_debian: CC := docker run --rm --workdir $(HOME) --entrypoint $(CC) -v $(shell pwd):$(HOME) mooreryan/valgrind
+valgrind_debian: PREREQUISITES = .prerequisites_debian
+valgrind_debian: all
 
-$(NAME): $(OBJ)
-	@clear
+.prerequisites:
+	/bin/rm -f .prerequisites_debian
+
+.prerequisites_debian:
+	/bin/rm -f .prerequisites
+
+$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
+	$(CC) -c -I $(INC_DIR) $(FLAGS) -o $@  $<
+
+PREREQUISITES = .prerequisites
+
+$(NAME): $(PREREQUISITES) $(OBJ)
+	touch $(PREREQUISITES)
 	@echo "***** $(NAME) generated *****"
 	@ar rc $(NAME) $(OBJ)
 
-
 clean:
-	@rm -f $(OBJS)
-	@rm -Rf $(OBJ_DIR)
+	@/bin/rm -f $(OBJS)
+	@/bin/rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
-	@rm -f a.out
+	/bin/rm -f .prerequisites .prerequisites_debian
+	@/bin/rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re obj-rule
+.PHONY: all clean fclean re obj-rule valgrind_debian

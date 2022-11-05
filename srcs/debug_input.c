@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   debug_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
+/*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:52:00 by thakala           #+#    #+#             */
-/*   Updated: 2022/11/01 10:58:29 by thakala          ###   ########.fr       */
+/*   Updated: 2022/11/05 12:04:45 by deelliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RTv1.h"
 
-
-
 void	realign_camera(t_win *win)
 {
-	t_tuple temp;
+	win->world.camera.transform.rotation.tuple.rotation = (t_rotation)\
+	{win->input.mouse.diff.row * 0.007, win->input.mouse.diff.col * 0.007, 0, POINT_1 };
+	transform_camera(&win->world.camera);
 
-	temp.tuple.rotation = (t_rotation){win->input.mouse.diff.row * 0.007, win->input.mouse.diff.col * 0.007, 0, POINT_1 };
-	rotate(&win->world.camera.transform.matrix, &temp);
-	win->world.camera.transform.inverse = win->world.camera.transform.matrix;
-	matrix_inversion(&win->world.camera.transform.inverse, 4);
+	// t_tuple temp;
+
+	// temp.tuple.rotation = (t_rotation){win->input.mouse.diff.row * 0.007, win->input.mouse.diff.col * 0.007, 0, POINT_1 };
+	// rotate(&win->world.camera.transform.matrix, &temp);
+	// win->world.camera.transform.inverse = win->world.camera.transform.matrix;
+	// matrix_inversion(&win->world.camera.transform.inverse, 4);
 
 	// win->world.camera.transform.rotation = (t_tuple){.tuple.rotation = {
 	// 	.x_wid_lat_pitch = win->input.mouse.diff.row * 0.007 \

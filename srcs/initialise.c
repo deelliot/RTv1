@@ -50,6 +50,7 @@ void	initialise_input(t_win *win)
 		.prev = {0, 0},
 		.diff = {0, 0}};
 	win->input.keyboard.cmd_is_toggled = FALSE;
+	win->input.mode = 0;
 }
 
 void	initialise_window(t_win *win)

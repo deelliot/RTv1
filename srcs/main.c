@@ -1002,7 +1002,6 @@ void	lighting_3(void)
 	light.position.tuple.units = (t_units){0.0, 0.0, 10, POINT_1};
 	light.intensity.tuple.units = (t_units){1.0, 1.0, 1.0, POINT_1};
 	final_colour = lighting(object_sphere.object.sphere.material, &light, comps.vectors, pixel_point);
-	// colour = lighting(((t_object *)vec_get(&world.objects, 0))->object.sphere.material, &light, comps.vectors, point);
 	printf("colour: %f, %f, %f, %f\n", final_colour.tuple.units.x, final_colour.tuple.units.y, final_colour.tuple.units.z, final_colour.tuple.units.w);
 }
 
@@ -1098,20 +1097,14 @@ int	main(void)
 	// if (argc != 2)
 	//  	handle_errors(USAGE);
 	//tests();
-	 initialise_world(&win.world);
-	// parse(&win);
+	initialise_world(&win.world);
 	initialise_window(&win);
-	// test_colour_at(&win);
 	test_render(&win);
-	// plot_points(&win);
-	// mlx_hook(win.win, KEY_DOWN, 0, handle_input, &win);
 	mlx_hook(win.win, ON_KEY_DOWN, 0, key_handler, &win);
 	mlx_hook(win.win, ON_DESTROY, 0, close_success, &win);
 	mlx_hook(win.win, ON_MOUSE_DOWN, 0, mouse_handler_down, &win);
 	mlx_hook(win.win, ON_MOUSE_MOVE, 0, mouse_handler_move, &win);
 	mlx_hook(win.win, ON_MOUSE_UP, 0, mouse_handler_up, &win);
-	// // plot_points(&win);
-	// mlx_hook(win.win, KEY_DOWN, 0, handle_input, &win);
 	mlx_loop(win.mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:52:00 by thakala           #+#    #+#             */
-/*   Updated: 2022/11/05 12:04:45 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/11/05 12:44:37 by deelliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ void	realign_camera(t_win *win)
 	win->world.camera.transform.rotation.tuple.rotation = (t_rotation)\
 	{win->input.mouse.diff.row * 0.007, win->input.mouse.diff.col * 0.007, 0, POINT_1 };
 	transform_camera(&win->world.camera);
+}
+
+// void	realign_camera(t_win *win)
+// {
+// 	win->world.camera.transform.rotation.tuple.rotation = (t_rotation)\
+// 	{win->input.mouse.diff.row * 0.007, win->input.mouse.diff.col * 0.007, 0, POINT_1 };
+// 	transform_camera(&win->world.camera);
 
 	// t_tuple temp;
 
@@ -39,7 +46,7 @@ void	realign_camera(t_win *win)
 	// translate(&win->world.camera.transform.matrix, &win->world.camera.transform.translation);
 	// win->world.camera.transform.matrix = view_transform(win->world.camera.origin, to, vector(0, 1, 0));
 	// print_world(&win->world, &win->world.camera);
-}
+// }
 
 void	navigate_camera(t_win *win)
 {

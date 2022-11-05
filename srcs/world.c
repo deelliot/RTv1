@@ -100,7 +100,6 @@ void	default_world(t_world *world)
 	t_mtx		view_matrix;
 
 	light = default_light();
-	// world->camera = camera(default_canvas(), M_PI_2);
 	sphere_1 = sphere(default_origin(), default_transform_1(),
 			default_material_1());
 	sphere_2 = sphere(origin_1(), default_transform_2(),

@@ -13,9 +13,9 @@ void	render(t_win *win, t_camera *camera)
 		{
 			win->world.ray = ray_for_pixel(camera, (t_canvas){.vertical = \
 				canvas.vertical, .horizontal = canvas.horizontal});
-			if ((canvas.vertical == 0 && canvas.horizontal == 0) \
+			if (0 && ((canvas.vertical == 0 && canvas.horizontal == 0) \
 				|| (canvas.vertical == 50 && canvas.horizontal == 100)
-				|| (canvas.vertical == 100 && canvas.horizontal == 200))
+				|| (canvas.vertical == 100 && canvas.horizontal == 200)))
 			{
 				printf("\n\nDEBUG:______\n");
 				print_camera(camera, 0);

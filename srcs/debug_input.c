@@ -6,7 +6,7 @@
 /*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:52:00 by thakala           #+#    #+#             */
-/*   Updated: 2022/11/05 12:44:37 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/11/07 10:43:40 by deelliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,18 @@
 
 void	realign_camera(t_win *win)
 {
-	win->world.camera.transform.rotation.tuple.rotation = (t_rotation)\
-	{win->input.mouse.diff.row * 0.007, win->input.mouse.diff.col * 0.007, 0, POINT_1 };
-	transform_camera(&win->world.camera);
-}
-
-// void	realign_camera(t_win *win)
-// {
-// 	win->world.camera.transform.rotation.tuple.rotation = (t_rotation)\
-// 	{win->input.mouse.diff.row * 0.007, win->input.mouse.diff.col * 0.007, 0, POINT_1 };
-// 	transform_camera(&win->world.camera);
-
-	// t_tuple temp;
-
-	// temp.tuple.rotation = (t_rotation){win->input.mouse.diff.row * 0.007, win->input.mouse.diff.col * 0.007, 0, POINT_1 };
-	// rotate(&win->world.camera.transform.matrix, &temp);
+	// win->world.camera.transform.rotation.tuple.rotation = (t_rotation)\
+	// {win->input.mouse.diff.row * -0.007,win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw, win->world.camera.transform.rotation.tuple.rotation.z_dep_long_roll, POINT_1 };
+	// rotate(&win->world.camera.transform.matrix, &win->world.camera.transform.rotation);
 	// win->world.camera.transform.inverse = win->world.camera.transform.matrix;
 	// matrix_inversion(&win->world.camera.transform.inverse, 4);
 
-	// win->world.camera.transform.rotation = (t_tuple){.tuple.rotation = {
-	// 	.x_wid_lat_pitch = win->input.mouse.diff.row * 0.007 \
-	// 		+ win->world.camera.transform.rotation.tuple.rotation.x_wid_lat_pitch,
-		//.y_hei_vert_yaw = win->input.mouse.diff.col * 0.007 \
-			//+ win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw,
-	// }};
-//	print_tuple(&win->world.camera.transform.rotation, 0, "camera.transform.rotation");
-//	print_tuple(&(t_tuple){.tuple.units = {.x = win->input.mouse.diff.row * 0.007, .y = win->input.mouse.diff.col * 0.007}}, 0, "mouse.diff {x, y}");
-	// win->world.camera.transform.matrix = identity_matrix();
-	// win->world.camera.origin = point(0, 1.5, -5);
-	// rotate(&win->world.camera.transform.matrix, &win->world.camera.transform.rotation);
-	// translate(&win->world.camera.transform.matrix, &win->world.camera.transform.translation);
-	// win->world.camera.transform.matrix = view_transform(win->world.camera.origin, to, vector(0, 1, 0));
-	// print_world(&win->world, &win->world.camera);
-// }
+	rot_y(&win->world.camera.transform.matrix, win->input.mouse.diff.col * 0.007);
+	rot_x(&win->world.camera.transform.matrix, win->input.mouse.diff.row * -0.007);
+	win->world.camera.transform.inverse = win->world.camera.transform.matrix;
+	matrix_inversion(&win->world.camera.transform.inverse, 4);
+
+}
 
 void	navigate_camera(t_win *win)
 {

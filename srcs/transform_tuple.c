@@ -34,14 +34,15 @@ void	transform_camera(t_camera *camera)
 {
 	t_mtx		view_matrix;
 
-	identity_matrix_set(&camera->transform.matrix);
-	translate(&camera->transform.matrix, &camera->transform.translation);
+	//identity_matrix_set(&camera->transform.matrix);
+	//translate(&camera->transform.matrix, &camera->transform.translation);
 	rotate(&camera->transform.matrix, &camera->transform.rotation);
-	scale(&camera->transform.matrix, &camera->transform.scale);
+	//scale(&camera->transform.matrix, &camera->transform.scale);
 	camera->origin = matrix_tuple_multi(&camera->transform.matrix, &camera->origin);
 	view_matrix = view_transform(camera->origin, point(0, 0, 0), vector(0, 1, 0));
-	matrix_multi_square(&camera->transform.matrix, &view_matrix, 4);
-	camera->transform.inverse = camera->transform.matrix;
+	//matrix_multi_square(&camera->transform.matrix, &view_matrix, 4);
+	//camera->transform.inverse = camera->transform.matrix;
+	camera->transform.inverse = view_matrix;
 	matrix_inversion(&camera->transform.inverse, 4);
 }
 

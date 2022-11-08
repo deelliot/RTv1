@@ -6,7 +6,7 @@
 /*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/11/05 12:03:01 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/11/08 10:34:50 by deelliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define KEY_DOWN 2
 # define ESC 53
 # define EPSILON 0.00001
+# define ROTATION_STEP (M_PI / 448)
 
 typedef struct s_img
 {

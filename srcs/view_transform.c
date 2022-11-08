@@ -13,7 +13,7 @@ t_transform	default_transform(void)
 		}
 	);
 }
-
+//from = origin, to = center of interest,
 t_mtx	view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
 	t_tuple	forward;

@@ -33,12 +33,24 @@ void	transform_cylinder(t_object *cylinder)
 void	transform_camera(t_camera *camera)
 {
 	t_mtx		view_matrix;
+	t_tuple		from_to;
+	t_mtx		rotation_temp;
+	t_tuple		negative_rotation;
+
+	from_to = tuple_sub(camera->origin, camera->center_of_interest);
+	printf("magnitude original: %f\n", magnitude(from_to));
+	negative_rotation = tuple_scale(camera->transform.rotation, -1);
+	identity_matrix_set(&rotation_temp);
+	rotate(&rotation_temp, &negative_rotation);
+	from_to = matrix_tuple_multi(&rotation_temp, &from_to);
+	printf("magnitude: %f\n", magnitude(from_to));
+	from_to = tuple_add(from_to, camera->center_of_interest);
 
 	identity_matrix_set(&camera->transform.matrix);
 	translate(&camera->transform.matrix, &camera->transform.translation);
-	rotate(&camera->transform.matrix, &camera->transform.rotation);
+	//rotate(&camera->transform.matrix, &camera->transform.rotation);
 	scale(&camera->transform.matrix, &camera->transform.scale);
-	view_matrix = view_transform(camera->origin, point(0, 0, 0), vector(0, 1, 0));
+	view_matrix = view_transform(from_to, camera->center_of_interest , vector(0, 1, 0));
 	matrix_multi_square(&camera->transform.matrix, &view_matrix, 4);
 	camera->transform.inverse = camera->transform.matrix;
 	matrix_inversion(&camera->transform.inverse, 4);

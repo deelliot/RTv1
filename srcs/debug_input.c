@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:52:00 by thakala           #+#    #+#             */
-/*   Updated: 2022/11/08 11:31:08 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:50:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ void	realign_camera(t_win *win)
 	t_tuple	rot_diff;
 
 	rot_diff.tuple.rotation.y_hei_vert_yaw = win->input.mouse.diff.col * ROTATION_STEP;
-	rot_diff.tuple.rotation.z_dep_long_roll \
-		= win->input.mouse.diff.row * ROTATION_STEP * sin(win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw);
-	rot_diff.tuple.rotation.x_wid_lat_pitch \
-		= win->input.mouse.diff.row * ROTATION_STEP * cos(win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw);
+	printf("sin: %lf\n", sin(win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw));
+	printf("cos: %lf\n", cos(win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw));
+	rot_diff.tuple.rotation.z_dep_long_roll = win->input.mouse.diff.row * ROTATION_STEP * sin(win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw);
+	rot_diff.tuple.rotation.x_wid_lat_pitch = win->input.mouse.diff.row * ROTATION_STEP * cos(win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw);
 	win->world.camera.transform.rotation.tuple.rotation.y_hei_vert_yaw \
 		+= rot_diff.tuple.rotation.y_hei_vert_yaw;
 	win->world.camera.transform.rotation.tuple.rotation.z_dep_long_roll \
 		+= rot_diff.tuple.rotation.z_dep_long_roll;
 	win->world.camera.transform.rotation.tuple.rotation.x_wid_lat_pitch \
 		+= rot_diff.tuple.rotation.x_wid_lat_pitch;
-	transform_camera(&win->world.camera);
+	transform_camera_defunct(&win->world.camera);
 	print_tuple(&win->world.camera.transform.rotation, 0, "camera.transform.rotation");
 }
 
@@ -45,8 +45,8 @@ void	navigate_camera(t_win *win)
 {
 	(void)win;
 	//win->objects.list[win->input.item_idx]
-	first_person_camera(win);
-	//realign_camera(win);
+	//first_person_camera(win);
+	realign_camera(win);
 	render(win, &win->world.camera);
 
 }

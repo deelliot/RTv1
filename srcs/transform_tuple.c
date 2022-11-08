@@ -48,23 +48,32 @@ void	transform_camera_defunct(t_camera *camera)
 {
 	t_mtx		view_matrix;
 	t_tuple		from_to;
+	t_tuple		new_from_to;
 	t_mtx		rotation_temp;
 	t_tuple		negative_rotation;
+	t_tuple		new_up;
 
+	printf("\n\n\n");
 	from_to = tuple_sub(camera->origin, camera->center_of_interest);
+	print_tuple(&from_to, 0, "from_to, original");
 	printf("magnitude original: %f\n", magnitude(from_to));
 	negative_rotation = tuple_scale(camera->transform.rotation, -1);
 	identity_matrix_set(&rotation_temp);
 	rotate(&rotation_temp, &negative_rotation);
-	from_to = matrix_tuple_multi(&rotation_temp, &from_to);
+	new_from_to = matrix_tuple_multi(&rotation_temp, &from_to);
+	print_tuple(&new_from_to, 0, "from_to, new");
 	printf("magnitude: %f\n", magnitude(from_to));
-	from_to = tuple_add(from_to, camera->center_of_interest);
+	new_from_to = tuple_add(new_from_to, camera->center_of_interest);
+	print_tuple(&new_from_to, 0, "from, new");
+
+	new_up = cross_product(vector(1, 0, 0), new_from_to);
+	print_tuple(&new_up, 0, "new_up");
 
 	identity_matrix_set(&camera->transform.matrix);
 	translate(&camera->transform.matrix, &camera->transform.translation);
 	//rotate(&camera->transform.matrix, &camera->transform.rotation);
 	scale(&camera->transform.matrix, &camera->transform.scale);
-	view_matrix = view_transform(from_to, camera->center_of_interest , vector(0, 1, 0));
+	view_matrix = view_transform(new_from_to, camera->center_of_interest , new_up);
 	matrix_multi_square(&camera->transform.matrix, &view_matrix, 4);
 	camera->transform.inverse = camera->transform.matrix;
 	matrix_inversion(&camera->transform.inverse, 4);

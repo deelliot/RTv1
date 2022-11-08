@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RTv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deelliot <deelliot@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:17:08 by deelliot          #+#    #+#             */
-/*   Updated: 2022/11/08 10:34:50 by deelliot         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:52:42 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ t_tuple	reflect(t_tuple input, t_tuple normal);
 /* object transformation */
 void	transform_object(t_transform *object);
 void	transform_camera(t_camera *camera);
+void	transform_camera_defunct(t_camera *camera);
 // void	transform_objects(t_objects *objects);
 
 /* view transfrom */

@@ -1,6 +1,6 @@
 # RTv1
 
-The first version of this raytracer project is a proof of concept on the theory of raytracing - ie. rendering 3D images,
+The first version of this raytracer project is a proof of concept on the theory of raytracing - or rendering 3D images,
 and is based on the work of Jamis Buck from the book "The Raytracer Challenge".
 
 The scenes are parsed from .json formatted files to create the images, using minilibx graphics library. 

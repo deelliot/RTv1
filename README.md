@@ -11,7 +11,8 @@ There are a few additionalfeatures in this version, including multiple lights, c
 have lids/no lids as well as the shine effect, however the real fun can be seen 
 in the follow up project which can be found in the RT repository.
 
-Here are some screenshots from the project
+Here are some screenshots from the project:
+<br>
 <br>
 ![Screenshot 2023-02-02 at 12 52 52](https://user-images.githubusercontent.com/93197340/216305658-37a103b0-a606-43fc-b0bf-ea92ddc521b6.png)
 <img width="497" alt="Screenshot 2023-02-02 at 12 51 06" src="https://user-images.githubusercontent.com/93197340/216305686-8fc81d32-836c-4d6f-b321-425124eb7b34.png">
